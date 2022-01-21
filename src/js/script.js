@@ -164,7 +164,7 @@
             }
              } else{ 
                
-              if(option.default == true){
+              if(option.default == false){
               // check if the option is default
      
               // reduce price variable
