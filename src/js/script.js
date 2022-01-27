@@ -158,21 +158,22 @@
           // check if there is param with a name of paramId in formData and if it includes optionId
           if(optionSelected) {
           
-            if(option.default == true){
+            if(!option.default == true){
             
               price += option.price;
                
            
-            }
-          } else{ 
+           } 
+           }else{ 
                
-            if(option.default == false){
+            if(option.default){
               // check if the option is default
      
               // reduce price variable
               price -= option.price;
             } 
-          }
+            }
+          
           const optionImage = thisProduct.imageWrapper.querySelector('.' + paramId + '-' + optionId);
 
           // check if there is an image
@@ -193,12 +194,13 @@
              
         }
         // update calculated price in the HTML
+        
+
+       
+      } 
         price *= thisProduct.amountWidget.value;
-
         thisProduct.priceElem.innerHTML = price;
-      }
-
-      
+       
     }
     initAmountWidget(){
       const thisProduct = this;
