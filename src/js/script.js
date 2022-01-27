@@ -193,7 +193,7 @@
              
         }
         // update calculated price in the HTML
-        price *= thisProduct.AmountWidget.value;
+        price *= thisProduct.amountWidget.value;
 
         thisProduct.priceElem.innerHTML = price;
       }
