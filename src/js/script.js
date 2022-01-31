@@ -351,6 +351,7 @@
       console.log('templates:', templates);
       thisApp.initData();
       thisApp.initMenu();
+      thisApp.initCart();
     },
     initCart:function(){
       const thisApp = this;
@@ -359,6 +360,7 @@
       thisApp.cart = new Cart(cartElem);
     },
   };
+  
   app.init();
   
 }
