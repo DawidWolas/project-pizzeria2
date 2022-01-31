@@ -163,8 +163,8 @@
               price += option.price;
                
            
-           } 
-           }else{ 
+            } 
+          }else{ 
                
             if(option.default){
               // check if the option is default
@@ -172,7 +172,7 @@
               // reduce price variable
               price -= option.price;
             } 
-            }
+          }
           
           const optionImage = thisProduct.imageWrapper.querySelector('.' + paramId + '-' + optionId);
 
@@ -198,8 +198,8 @@
 
        
       } 
-        price *= thisProduct.amountWidget.value;
-        thisProduct.priceElem.innerHTML = price;
+      price *= thisProduct.amountWidget.value;
+      thisProduct.priceElem.innerHTML = price;
        
     }
     initAmountWidget(){
@@ -217,7 +217,7 @@
       const thisWidget = this;
 
       thisWidget.getElements(element);
-      thisWidget.setValue(thisWidget.input.value);
+      thisWidget.setValue(settings.amountWidget.defaultValue);
       thisWidget.initActions();
       console.log('AmountWidget' ,thisWidget);
       console.log('constructor arguments:' ,element);
@@ -239,9 +239,11 @@
 
       /*TODO :Add validation*/
       if(thisWidget.value !== newValue&& !isNaN(newValue)&& settings.amountWidget.defaultMin -1 <= newValue  && newValue <= settings.amountWidget.defaultMax +1) {
+      
         thisWidget.value = newValue;
         thisWidget.announce();
-      }
+      
+    }
       
       thisWidget.input.value = thisWidget.value;
     }
