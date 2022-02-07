@@ -157,13 +157,13 @@
         thisProduct.processOrder();
         thisProduct.addToCart();
       });
-      console.log('initOrderForm', thisProduct);
+      // console.log('initOrderForm', thisProduct);
     }
     processOrder(){
       const thisProduct = this;
-      console.log('processOrder',thisProduct);
+      // console.log('processOrder',thisProduct);
       const formData =utils.serializeFormToObject(thisProduct.form);
-      console.log('formData',formData);
+      // console.log('formData',formData);
 
       // set price to default price
       let price = thisProduct.data.price;
@@ -179,7 +179,7 @@
         for(let optionId in param.options) {
           // determine option value, e.g. optionId = 'olives', option = { label: 'Olives', price: 2, default: true }
           const option = param.options[optionId];
-          console.log(optionId, option);
+          // console.log(optionId, option);
           const optionSelected = formData[paramId] && formData[paramId].includes(optionId);
           
           // check if there is param with a name of paramId in formData and if it includes optionId
@@ -371,7 +371,44 @@
       const generatedHTML = templates.cartProduct(menuProduct);
       const generatedDOM = utils.createDOMFromHTML(generatedHTML);
       thisCart.dom.productList.appendChild(generatedDOM);
+      thisCart.products.push(new CartProduct(menuProduct, generatedDOM));
+      console.log('thisCart.product', thisCart.products);
       console.log('adding product',menuProduct);
+    }
+  }
+  class CartProduct{
+    constructor(menuProduct,element){
+      const thisCartProduct = this;
+
+      thisCartProduct.id = menuProduct.id;
+      thisCartProduct.name = menuProduct.name;
+      thisCartProduct.amount = menuProduct.value;
+      thisCartProduct.priceSingle = menuProduct.priceSingle;
+      thisCartProduct.price = menuProduct.price;
+      thisCartProduct.params = menuProduct.params;
+      thisCartProduct.getElements(element); 
+      thisCartProduct.initAmountWidget();
+     
+    }
+    getElements(element){
+      const thisCartProduct =this;
+      thisCartProduct.dom = {} ;
+      thisCartProduct.dom.wrapper= element ;
+      thisCartProduct.dom.amountWidget = element.querySelector(select.cartProduct.amountWidget);
+      thisCartProduct.dom.price = element.querySelector(select.cartProduct.price);
+      thisCartProduct.dom.edit = element.querySelector(select.cartProduct.edit);
+      thisCartProduct.dom.remove = element.querySelector(select.cartProduct.remove);
+      console.log('thisCartProduct', thisCartProduct);
+    }
+    initAmountWidget(){
+      const thisCartProduct = this;
+      thisCartProduct.amountWidget = new AmountWidget(thisCartProduct.dom.amountWidget);
+      thisCartProduct.dom.amountWidget.addEventListener('updated', function(){
+        thisCartProduct.amount = thisCartProduct.amountWidget.value;
+
+        thisCartProduct.price = thisCartProduct.priceSingle * thisCartProduct.amountWidget.value;
+        thisCartProduct.dom.price.innerHTML = thisCartProduct.price;
+      });
     }
   }
   const app = {
