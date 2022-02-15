@@ -413,7 +413,12 @@
       thisCart.dom.totalNumber.innerHTML = thisCart.totalNumber;
       thisCart.dom.deliveryFee.innerHTML = thisCart.deliveryFee;  
     }
-
+    remove(cartProduct){
+      const thisCart = this;
+      const indexOfThings = thisCart.products.indexOf(cartProduct);
+      thisCart.products.splice(indexOfThings, 1);
+      cartProduct.dom.wrapper.remove();
+    }
   }
   
   class CartProduct{
@@ -460,7 +465,7 @@
         },
       });
       thisCartProduct.dom.wrapper.dispatchEvent(event);
-      console.log('remove',this.remove)
+      console.log('remove',this.remove);
     }
     initActions(){
       const thisCartProduct =this;
