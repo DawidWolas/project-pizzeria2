@@ -428,14 +428,14 @@
 
       thisCartProduct.id = menuProduct.id;
       thisCartProduct.name = menuProduct.name;
-      thisCartProduct.amount = menuProduct.value;
+      thisCartProduct.amount = menuProduct.amount;
       thisCartProduct.priceSingle = menuProduct.priceSingle;
       thisCartProduct.price = menuProduct.price;
       thisCartProduct.params = menuProduct.params;
       thisCartProduct.getElements(element); 
       thisCartProduct.initAmountWidget();
       thisCartProduct.initActions();
-     
+     console.log(menuProduct);
     }
     getElements(element){
       const thisCartProduct =this;
